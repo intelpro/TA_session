@@ -1,0 +1,5 @@
+*.pth
+monodepth/saved_ckpt/*
+tags
+.ipynb_checkpoints
+monodepth/__pycache__/
