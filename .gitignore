@@ -3,3 +3,5 @@ monodepth/saved_ckpt/*
 tags
 .ipynb_checkpoints
 monodepth/__pycache__/
+PSMnet/__pycache__/
+PSMnet/saved_model/

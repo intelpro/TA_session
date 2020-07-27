@@ -7,6 +7,43 @@ import torch.nn.functional as F
 import math
 import numpy as np
 
+def test(model, imgL,imgR,disp_true):
+        model.eval()
+        imgL, imgR, disp_true = imgL.cuda(), imgR.cuda(), disp_true.cuda()
+        #---------
+        mask = disp_true < 192
+        #----
+
+        if imgL.shape[2] % 16 != 0:
+            times = imgL.shape[2]//16       
+            top_pad = (times+1)*16 -imgL.shape[2]
+        else:
+            top_pad = 0
+
+        if imgL.shape[3] % 16 != 0:
+            times = imgL.shape[3]//16                       
+            right_pad = (times+1)*16-imgL.shape[3]
+        else:
+            right_pad = 0  
+
+        imgL = F.pad(imgL,(0,right_pad, top_pad,0))
+        imgR = F.pad(imgR,(0,right_pad, top_pad,0))
+
+        with torch.no_grad():
+            output3 = model(imgL,imgR)
+            output3 = torch.squeeze(output3)
+        
+        if top_pad !=0:
+            img = output3[:,top_pad:,:]
+        else:
+            img = output3
+
+        if len(disp_true[mask])==0:
+           loss = 0
+        else:
+           loss = torch.mean(torch.abs(img[mask]-disp_true[mask]))  # end-point-error
+        return loss.data.cpu(), img[mask]
+
 class BasicBlock(nn.Module):
     expansion = 1
     def __init__(self, inplanes, planes, stride, downsample, pad, dilation):
