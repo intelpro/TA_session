@@ -1,7 +1,7 @@
 import argparse
 
 def get_config(params):
-    params["data_dir"] = "/media/mnt1/dataset/Kitti_raw/2011_09_26/2011_09_26_drive_0096_sync"
+    params["data_dir"] = "/content/gdrive/My Drive/samsung_TAsession/2011_09_26_drive_0096_sync"
     params["model_path"] = "./saved_ckpt"
     params["output_directory"] = None
     params["model"] = 'resnet18_md'
