@@ -1,4 +1,4 @@
 # RE510_experiment3
-### 실습자료를 다운로드 해주세요. 
-### 실습 1 - MNIST 
-### 실습 2 - PSMnet
+### Please download material
+### LAB 1 - MNIST 
+### LAB 2 - PSMnet
